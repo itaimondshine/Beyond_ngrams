@@ -1,0 +1,870 @@
+{% extends "layout.html" %}
+{% block content %}
+<style type="text/css">/* for all elements */
+        .evaluation-container {
+            display: flex;
+            justify-content: space-between;
+            /*align-items: flex-start;*/
+            gap: 50px;
+        }
+
+        .evaluation-box {
+            flex: 1;
+            border: 1px solid #007bff;
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .box-header {
+            color: #007bff;
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+
+        .slider-container {
+            /*display: grid;*/
+            /*grid-template-columns: 1fr 1fr;*/
+            gap: 20px;
+            margin-top: 20px; /* Adjust this value as needed */
+        }
+
+        /*.slider-section {*/
+        /*    display: flex;*/
+        /*    flex-direction: column;*/
+        /*    margin-bottom: 20px;*/
+        /*}*/
+
+        .range-labels {
+            padding: 0;
+            margin: 10px 0;
+            list-style-type: none;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .rainbow2 input[type="range"] {
+            width: 100%;
+        }
+
+        .slider-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .yellow {
+            margin-top: 20px; /* Ensures a fixed distance between text and slider-container */
+        }
+
+*{
+   box-sizing: border-box;
+   }
+   body{
+   margin-left:15%;
+   margin-right:15%;
+   }
+   .more1 {display: none;}
+   .more2 {display: none;}
+   p.yellow::selection {
+   color: black;
+   background: yellow;
+   }
+   p.yellow::-moz-selection { /* Code for Firefox */
+   color: black;
+   background: yellow;
+   }
+   p.yellow::selection {
+   color: black;
+   background: yellow;
+   }
+   p.yellow::-moz-selection { /* Code for Firefox */
+   color: black;
+   background: yellow;
+   }
+   hr.new1 {
+  border-top: 1px solid red;
+}
+
+
+   .borderexample {
+   border-width:3px;
+   border-style:solid;
+   border-color:lightyellow;
+   background-color:lightyellow;
+   width:70%;
+   }
+           .float-child {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 1.2em;
+            color: #333;
+        }
+        .float-child b {
+            font-size: 1.4em;
+            color: #4CAF50;
+        }
+        .float-child p {
+            font-size: 1.1em;
+        }
+        .float-child ul {
+            padding-left: 20px;
+            line-height: 1.6;
+        }
+        .float-child li {
+            margin-bottom: 2px;
+        }
+        .float-child li b {
+            color: #2c3e50;
+        }
+        .float-child ul ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .float-child ul ul li {
+            margin-bottom: 2px;
+        }
+        .float-child ul ul li b {
+            color: #e74c3c;
+        }
+   .borderexamplefeatures{
+   border-width:3px;
+   border-style:solid;
+   border-color:lightyellow;
+   background-color:lightyellow;
+   width:33%;
+   }
+
+   .range-labels1 li {
+   white-space: nowrap;
+   margin-left:-3%;
+   position: relative;
+   display: inline-block;
+   float:left;
+   text-align: center;
+   color: blue;
+   font-size: 0.9em;
+   cursor: pointer;
+   }
+   hr{
+   margin-bottom: 10px;
+   margin-left:0px;
+   border: none;
+   height: 4px;
+   }
+   .rainbow{
+   background: linear-gradient(to right, #FAA0A0  16%, #FAC898 16%, #FAC898 40%, #fdfd96 40%, #fdfd96 60%, hsla(120,60%,70%,0.3) 60%, hsla(120,60%,70%,0.3) 84%, hsl(210, 57%, 78%) 84%);
+   width: 76.6%;
+   height: 0px;
+   padding-top:15px;
+   }
+   .rainbow2{
+   background: linear-gradient(to right, #FAA0A0  16%, #FAC898 16%, #FAC898 40%, #fdfd96 40%, #fdfd96 60%, hsla(120,60%,70%,0.3) 60%, hsla(120,60%,70%,0.3) 84%, hsl(210, 57%, 78%) 84%);
+   width: 100%;
+   height: 0px;
+   padding-top:15px;
+   }
+   .instr{
+   margin-right:20%;
+   }
+   .very_unlikely{
+   width:25%;
+   }
+   .unlikely{
+   width:35%;
+   }
+   .neutral{
+   width:15%;
+   }
+   .likely{
+   width:45%;
+   }
+   .very_likely{
+   padding-right:0px
+   }
+   .very_unlikely1{
+   width:30%;
+   }
+   .unlikely1{
+   width:90%;
+   }
+   .likely1{
+   width:100%;
+   }
+   .very_likely1{
+   padding-right:0px
+   }
+   .panel{
+   margin-right:15%;
+   }
+   .cnt{
+   width:80%;
+   }
+   li.mobile {
+   display: none;
+   }
+   .mobile {
+   display: none;
+   }
+   li.desktop {
+   display: block;
+   }
+   #instructions,#task{
+   margin-bottom:15px;
+   padding: 10px 10px;
+   font-family: Verdana, Geneva, sans-serif;
+   color:#333333;font-size:0.9em
+   }
+   .example {
+   font-weight:normal;
+   width:60%;
+   }
+   .paragraph {
+   font-weight:normal;
+   width:100%;
+   }
+   .title {
+   font-weight:bold;
+   width:100%;
+   }
+   .textarea_narrow{
+   width: 100%;
+   }
+   @media only screen and (max-width: 1000px) {
+       body {
+           margin-left: 0px;
+           margin-right: 0px;
+           padding: 0;
+           height: 20vh;
+           width: 5vw;
+           -webkit-transform: scale(0.5); /* Chrome, Safari 3.1+  */
+           -moz-transform: scale(0.5); /* Firefox 3.5-15 */
+           -ms-transform: scale(0.5); /* IE 9 */
+           -o-transform: scale(0.5); /* Opera 10.50-12.00 */
+           transform: scale(0.5);
+       }
+
+       .wrapper {
+           width: 100vw;
+       }
+
+       #instructions {
+           margin-bottom: 15px;
+           padding: 0px 15px;
+           font-family: Verdana, Geneva, sans-serif;
+           color: #333333;
+           font-size: 2.5em
+       }
+
+       #task {
+           margin-bottom: 15px;
+           margin-left: 15px;
+           margin-left: 1px;
+           padding: 15px 15px;
+           font-family: Verdana, Geneva, sans-serif;
+           color: #333333;
+           font-size: 2.5em;
+       }
+
+       .panel {
+           margin-left: 5%;
+           margin-right: -100%;
+       }
+
+       .tab-pane {
+           margin-left: 0%;
+           padding: 0;
+       }
+
+       .tab-content {
+           margin-left: 0%;
+       }
+
+       .rainbow {
+           width: 100%;
+           padding-top: 3px;
+           margin-top: 50px;
+       }
+
+       .rainbow2 {
+           width: 100%;
+           padding-top: 3px;
+           margin-top: 30px;
+       }
+
+       .instr {
+           margin-right: 0%;
+           width: 100%;
+       }
+
+       .nav-tabs {
+           idth: 100%;
+       }
+
+       .nav-tabs li {
+           font-size: 20px;
+           width: 20%;
+       }
+
+       .range-labels {
+           width: 103%;
+           margin-left: 5%;
+       }
+
+       .range-labels li {
+           font-size: 24px;
+           cursor: pointer;
+           transform: rotate(-45deg);
+           -ms-transform: rotate(-45deg); /* IE 9 */
+           -webkit-transform: rotate(-45deg); /* Opera, Chrome, and Safari */
+       }
+
+       .range-labels1 {
+           width: 103%;
+           margin-left: 0%;
+       }
+
+       .range-labels1 li {
+           white-space: nowrap;
+           margin-left: 5%;
+           position: relative;
+           display: inline-block;
+           float: left;
+           text-align: center;
+           color: blue;
+           font-size: 24px;
+           cursor: pointer;
+           transform: rotate(-45deg);
+           -ms-transform: rotate(-45deg); /* IE 9 */
+           -webkit-transform: rotate(-45deg); /* Opera, Chrome, and Safari */
+       }
+
+       .very_unlikely {
+           margin-left: 0%;
+           width: 20%;
+       }
+
+       .unlikely {
+           idth: 28%;
+       }
+
+       .neutral {
+           width: 18%;
+       }
+
+       .likely {
+           width: 32%;
+       }
+
+       .very_likely {
+           margin-right: -3%;
+       }
+
+       .very_unlikely1 {
+           width: 15%;
+       }
+
+       .unlikely1 {
+           width: 70%;
+       }
+
+       .neutral1 {
+           width: 20%;
+       }
+
+       .mobile {
+           display: block;
+       }
+
+       li.mobile {
+           display: block;
+       }
+
+       li.desktop {
+           display: none;
+       }
+
+       .cnt {
+           width: 100%;
+       }
+
+       .example {
+           font-weight: normal;
+           width: 100%;
+       }
+
+       .paragraph {
+           font-weight: normal;
+           width: 100%;
+       }
+
+       .title {
+           font-weight: bold;
+           width: 100%;
+       }
+
+       .slider {
+           -webkit-appearance: none;
+           width: 100%;
+           height: 25px;
+           border-radius: 5px;
+           background: lightblue;
+           outline: none;
+           opacity: 1;
+           -webkit-transition: .2s;
+           transition: opacity .2s;
+       }
+
+       .slider::-webkit-slider-thumb {
+           -webkit-appearance: none;
+           appearance: none;
+           width: 35px;
+           height: 35px;
+           border-radius: 50%;
+           background: blue;
+           cursor: pointer;
+       }
+
+       .slider::-moz-range-thumb {
+           width: 35px;
+           height: 35px;
+           border-radius: 50%;
+           background: blue;
+           cursor: pointer;
+       }
+
+       input[type=range] {
+           width: 100%;
+           -webkit-appearance: none;
+       }
+
+       input[type=range]:focus {
+           outline: none;
+       }
+
+       input[type=range]::-webkit-slider-runnable-track {
+           width: 100%;
+           height: 30px;
+           cursor: pointer;
+           box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3) inset;
+           background: lightblue;
+           border-radius: 20px;
+           border: 0.2px solid #010101;
+       }
+
+       input[type=range]::-webkit-slider-thumb {
+           box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+           border: 1px solid #000000;
+           height: 35px;
+           width: 35px;
+           border-radius: 20px;
+           background: white;
+           cursor: pointer;
+           -webkit-appearance: none;
+           margin-top: -3px;
+       }
+
+       .range {
+           --ticksThickness: 4px;
+           --ticksHeight: 100%;
+           --ticksColor: blue;
+           display: inline-block;
+           background: linear-gradient(to right, var(--ticksColor) var(--ticksThickness), transparent 1px) repeat-x;
+           background-size: calc(100% / ((var(--max) - var(--min)) / var(--step)) - .1%) var(--ticksHeight);
+           background-position: 0 bottom;
+           position: relative;
+       }
+
+       .textarea_narrow {
+           width: 100%;
+       }
+
+       .chck {
+           width: 30px;
+           height: 30px;
+       }
+
+       .container {
+           width: 100%;
+       }
+
+       #collapse2 {
+           width: 100%;
+       }
+   }
+
+
+</style>
+<div class="float-container">
+   <div class="float-child">
+        b>Petunjuk:</b>
+
+        <p>Dalam tugas ini, Anda akan menggunakan pengetahuan bahasa dan akal sehat untuk mengevaluasi ringkasan berdasarkan kriteria kualitas berikut.</p>
+
+        <ul>
+        <li>Untuk setiap tugas, Anda akan diberikan ringkasan manusia dan ringkasan yang dibuat dari Modul (misalnya ChatGPT).</li>
+
+        <li>Berdasarkan ringkasan manusia, sesuaikan bilah geser untuk menunjukkan evaluasi Anda, dari 0 hingga 5, pada empat kriteria:</li>
+
+        <ul>
+        <li><b>Koherensi:</b> Seberapa logis dan jelasnya alur ide dalam ringkasan ini?</li>
+
+        <li><b>Konsistensi:</b> Apakah ringkasan menyampaikan isi ringkasan manusia dengan tepat?</li>
+
+        <li><b>Kelancaran:</b> Seberapa baik kalimat-kalimat dalam ringkasan ini ditulis? Apakah tata bahasanya benar dan mudah dibaca?</li>
+        <li><b>Relevansi:</b> Seberapa baik konten ringkasan ini menangkap informasi terpenting dari ringkasan manusia?</li>
+        </ul>
+        </br>
+        <li>Jika Anda tidak yakin dan tidak dapat memberikan jawaban, pilih kotak centang "Tidak dapat menjawab pertanyaan" dan jelaskan alasan Anda di kotak teks di bawah ini.</li>
+        </ul>
+      <div id="mapid" class="map"></div>
+   </div>
+<p class="yellow" id="title" style="font-weight:normal;width:70%;margin: 0 auto;text-align: center;font-size: 24px;"><strong>Manusia Ringkasan:</strong> {{Ringkasan}}</p>
+
+   <br/>
+   <hr class="new1">
+   <br/>
+<!--   <label>How <b>coherent</b> is the Ringkasan 1?</label>-->
+<!--   <p>Please, move the slider below to answer this question (0 = definitely not coherent; 5 = definitely coherent).</p>-->
+<!--   &nbsp;-->
+<!--   <div class="mobile">&nbsp;</div>-->
+<!--   <div style="width:100%;">-->
+<!--      <ul class="range-labels1">-->
+<!--         <li class="very_unlikely1">Very Incoherent</li>-->
+<!--         <li class="unlikely1">Incoherent</li>-->
+<!--         <li class="desktop"> Somewhat Coherent</li>-->
+<!--         <li class="likely1">Coherent</li>-->
+<!--         <li class="very_likely1">Very Coherent</li>-->
+<!--      </ul>-->
+<!--      <div class="rainbow2">-->
+<!--         <div class="range" style="&#45;&#45;step:1; &#45;&#45;min:1; &#45;&#45;max:5; width:100.2%;">-->
+<!--            <input id="myRange1a" max="5" min="1" name="ans" style="width: 100.2%;" type="range" value="" />-->
+<!--         </div>-->
+<!--      </div>-->
+<!--   </div>-->
+<!--   &nbsp;-->
+<!--   <p>Jawaban Anda adalah: <span id="demo1a" style="font-size:200%">_</span></p>-->
+<!--      <label>How <b>coherent</b> is the Ringkasan 2?</label>-->
+<!--<br>   <div class="mobile">&nbsp;</div>-->
+<!--   <div style="width:100%;">-->
+<!--      <div class="rainbow2">-->
+<!--         <div class="range" style="&#45;&#45;step:1; &#45;&#45;min:1; &#45;&#45;max:5; width:100.2%;">-->
+<!--            <input id="myRange1b" max="5" min="1" name="ans" style="width: 100.2%;" type="range" value="" />-->
+<!--         </div>-->
+<!--      </div>-->
+<!--   </div>-->
+<!--   &nbsp;-->
+<!--   <p>Jawaban Anda adalah: <span id="demo1b" style="font-size:200%">_</span></p>-->
+    <div class="evaluation-container">
+        <div class="evaluation-box">
+            <div class="box-header" style="width: 100%;">Ringkasan 1</div>
+                <p class="yellow" id="gpt" style="font-weight:normal;width: 100%; margin: 0; padding: 0; text-align: center;">
+                 Ringkasan Modul 1: {{gpt}}
+                </p>
+            <div class="slider-container">
+                <!-- Coherence -->
+                <div class="slider-section">
+                    <label style="text-align:center; display:block; font-size: 1.2em;">Koheren</label>
+                    <ul class="range-labels">
+<li>Sangat Tidak Koheren</li>
+<li>Tidak Koheren</li>
+<li>Agak Koheren</li>
+<li>Koheren</li>
+<li>Sangat Koheren</li>
+                    </ul>
+                    <div class="rainbow2">
+                        <input id="myRange1a" max="5" min="1" name="ans" type="range" value=""/>
+                    </div>
+                    <p>Jawaban Anda adalah: <span id="demo1a" style="font-size:200%">_</span></p>
+                </div>
+
+                <!-- Completeness -->
+                <div class="slider-section">
+                    <label style="text-align:center; display:block; font-size: 1.2em;">Kelengkapan</label>
+                    <ul class="range-labels">
+<li>Sangat Tidak Lengkap</li>
+<li>Tidak Lengkap</li>
+<li>Agak Lengkap</li>
+<li>Lengkap</li>
+<li>Sangat Lengkap</li>
+                    </ul>
+                    <div class="rainbow2">
+                        <input id="myRange2a" max="5" min="1" name="ans" type="range" value=""/>
+                    </div>
+                    <p>Jawaban Anda adalah: <span id="demo2a" style="font-size:200%">_</span></p>
+                </div>
+
+                <!-- Fluency -->
+                <div class="slider-section">
+                    <label style="text-align:center; display:block; font-size: 1.2em;">Kelancaran</label>
+                    <ul class="range-labels">
+                    <li>Sangat Berpengaruh</li>
+                    <li>Berpengaruh</li>
+                    <li>Agak Lancar</li>
+                    <li>Lancar</li>
+                    <li>Sangat Lancar</li>
+                    </ul>
+                    <div class="rainbow2">
+                        <input id="myRange3a" max="5" min="1" name="ans" type="range" value=""/>
+                    </div>
+                    <p>Jawaban Anda adalah: <span id="demo3a" style="font-size:200%">_</span></p>
+                </div>
+
+                <!-- Relevance -->
+                <div class="slider-section">
+                    <label style="text-align:center; display:block; font-size: 1.2em;">Relevansi</label>
+                    <ul class="range-labels">
+<li>Sangat Tidak Relevan</li>
+<li>Tidak Relevan</li>
+<li>Agak Relevan</li>
+<li>Relevan</li>
+<li>Sangat Relevan</li>
+                    </ul>
+                    <div class="rainbow2">
+                        <input id="myRange4a" max="5" min="1" name="ans" type="range" value=""/>
+                    </div>
+                    <p>Jawaban Anda adalah: <span id="demo4a" style="font-size:200%">_</span></p>
+                </div>
+
+                <!-- Hallucinations -->
+            </div>
+        </div>
+
+        <div class="evaluation-box">
+            <div class="box-header" style="width: 100%;">Ringkasan 2</div>
+                <p class="yellow" id="gemini" style="font-weight:normal;width: 100%; margin: 0; padding: 0; text-align: center;">
+                    Modul Ringkasan 2: {{gemini}}
+                </p>
+            <div class="slider-container">
+                <!-- Coherence -->
+                <div class="slider-section">
+                    <label style="text-align:center; display:block; font-size: 1.2em;">Koheren</label>
+                    <ul class="range-labels">
+<li>Sangat Tidak Koheren</li>
+<li>Tidak Koheren</li>
+<li>Agak Koheren</li>
+<li>Koheren</li>
+<li>Sangat Koheren</li>
+                    </ul>
+                    <div class="rainbow2">
+                        <input id="myRange1b" max="5" min="1" name="ans" type="range" value=""/>
+                    </div>
+                    <p>Jawaban Anda adalah: <span id="demo1b" style="font-size:200%">_</span></p>
+                </div>
+
+                <!-- Completeness -->
+                <div class="slider-section">
+                    <label style="text-align:center; display:block; font-size: 1.2em;">Kelengkapan</label>
+                    <ul class="range-labels">
+<li>Sangat Tidak Lengkap</li>
+<li>Tidak Lengkap</li>
+<li>Agak Lengkap</li>
+<li>Lengkap</li>
+<li>Sangat Lengkap</li>
+                    </ul>
+                    <div class="rainbow2">
+                        <input id="myRange2b" max="5" min="1" name="ans" type="range" value=""/>
+                    </div>
+                    <p>Jawaban Anda adalah: <span id="demo2b" style="font-size:200%">_</span></p>
+                </div>
+
+                <!-- Fluency -->
+                <div class="slider-section">
+                    <label style="text-align:center; display:block; font-size: 1.2em;">Kelancaran</label>
+                    <ul class="range-labels">
+<li>Sangat Berpengaruh</li>
+<li>Berpengaruh</li>
+<li>Agak Lancar</li>
+<li>Lancar</li>
+<li>Sangat Lancar</li>
+                    </ul>
+                    <div class="rainbow2">
+                        <input id="myRange3b" max="5" min="1" name="ans" type="range" value=""/>
+                    </div>
+                    <p>Jawaban Anda adalah: <span id="demo3b" style="font-size:200%">_</span></p>
+                </div>
+
+                <!-- Relevance -->
+                <div class="slider-section">
+                    <label style="text-align:center; display:block; font-size: 1.2em;">Relevansi</label>
+                    <ul class="range-labels">
+<li>Sangat Tidak Relevan</li>
+<li>Tidak Relevan</li>
+<li>Agak Relevan</li>
+<li>Relevan</li>
+<li>Sangat Relevan</li>
+                    </ul>
+                    <div class="rainbow2">
+                        <input id="myRange4b" max="5" min="1" name="ans" type="range" value=""/>
+                    </div>
+                    <p>Jawaban Anda adalah: <span id="demo4b" style="font-size:200%">_</span></p>
+                </div>
+                                <!-- Hallucinations -->
+            </div>
+        </div>
+    </div>
+
+
+   <form method="POST" action="">
+      <input type="checkbox" id="mismatch" name="mismatch" value=True>
+      <input type="hidden" name="coherence_gpt" id="slider1_value">
+      <input type="hidden" name="completeness_gpt" id="slider2_value">
+      <input type="hidden" name="fluency_gpt" id="slider3_value">
+      <input type="hidden" name="relevance_gpt" id="slider4_value">
+       <input type="hidden" name="hallucination_gpt" id="slider5_value">
+      <input type="hidden" name="coherence_gemini" id="slider1b_value">
+      <input type="hidden" name="completeness_gemini" id="slider2b_value">
+      <input type="hidden" name="fluency_gemini" id="slider3b_value">
+      <input type="hidden" name="relevance_gemini" id="slider4b_value">
+       <input type="hidden" name="hallucination_gemini" id="slider5b_value">
+      <label for="mismatch">Ada masalah dengan deskripsi</label><br>
+      <button type="submit" onclick='this.disabled=true; submit()' class="btn btn-primary" id="submit_button" name="submit_button" value="submit_b"> Kirim dan lanjutkan ke tugas berikutnya </button>
+   </form>
+</div>
+<script type="text/javascript">
+
+   document.addEventListener("DOMContentLoaded", function() {
+       console.log("submit");
+
+       var slider1 = document.getElementById("myRange1a");
+       var slider2 = document.getElementById("myRange2a");
+       var slider3 = document.getElementById("myRange3a");
+       var slider4 = document.getElementById("myRange4a");
+       var slider5 = document.getElementById("myRange5a");
+       var slider1b = document.getElementById("myRange1b");
+       var slider2b = document.getElementById("myRange2b");
+       var slider3b = document.getElementById("myRange3b");
+       var slider4b = document.getElementById("myRange4b");
+       var slider5b = document.getElementById("myRange5b");
+       var output1 = document.getElementById("demo1a");
+       var output2 = document.getElementById("demo2a");
+       var output3 = document.getElementById("demo3a");
+       var output4 = document.getElementById("demo4a");
+       var output5 = document.getElementById("demo5a");
+       var output1b = document.getElementById("demo1b");
+       var output2b = document.getElementById("demo2b");
+       var output3b = document.getElementById("demo3b");
+       var output4b = document.getElementById("demo4b");
+       var output5b = document.getElementById("demo5b");
+       var slider1ValueInput = document.getElementById("slider1_value");
+       var slider1bValueInput = document.getElementById("slider1b_value");
+       var slider2ValueInput = document.getElementById("slider2_value");
+       var slider2bValueInput = document.getElementById("slider2b_value");
+       var slider3ValueInput = document.getElementById("slider3_value");
+       var slider3bValueInput = document.getElementById("slider3b_value");
+       var slider4ValueInput = document.getElementById("slider4_value");
+       var slider4bValueInput = document.getElementById("slider4b_value");
+       var slider5ValueInput = document.getElementById("slider5_value");
+       var slider5bValueInput = document.getElementById("slider5b_value");
+       var no_ans = document.getElementById('no_ans');
+       var no_ans_reason = document.getElementById("no_ans_reason");
+
+       // Initial display
+       output1.innerHTML = slider1.value;
+       output1b.innerHTML = slider1b.value;
+       slider1ValueInput.value = slider1.value;
+       slider1bValueInput.value = slider1b.value;
+       output2.innerHTML = slider2.value;
+       slider2ValueInput.value = slider2.value;
+       output2b.innerHTML = slider2b.value;
+       slider2bValueInput.value = slider2b.value;
+       output3.innerHTML = slider3.value;
+       slider3ValueInput.value = slider3.value;
+       output3b.innerHTML = slider3.value;
+       slider3bValueInput.value = slider3b.value;
+       output4.innerHTML = slider4.value;
+       slider4ValueInput.value = slider4.value;
+       output4b.innerHTML = slider4b.value;
+       slider4bValueInput.value = slider4b.value;
+       output5.innerHTML = slider5.value;
+       slider5ValueInput.value = slider5.value;
+       output5b.innerHTML = slider5b.value;
+       slider5bValueInput.value = slider5b.value;
+       // Slider input events
+       slider1.oninput = function() {
+           output1.innerHTML = this.value;
+           slider1ValueInput.value = this.value;
+       };
+
+      slider1b.oninput = function() {
+           output1b.innerHTML = this.value;
+           slider1bValueInput.value = this.value;
+       };
+
+       slider2.oninput = function() {
+           output2.innerHTML = this.value;
+           slider2ValueInput.value = this.value;
+       };
+
+      slider2b.oninput = function() {
+           output2b.innerHTML = this.value;
+           slider2bValueInput.value = this.value;
+       };
+       slider3.oninput = function() {
+           output3.innerHTML = this.value;
+           slider3ValueInput.value = this.value;
+       };
+       slider3b.oninput = function() {
+           output3b.innerHTML = this.value;
+           slider3bValueInput.value = this.value;
+       };
+       slider4.oninput = function() {
+           output4.innerHTML = this.value;
+           slider4ValueInput.value = this.value;
+       };
+      slider4b.oninput = function() {
+           output4b.innerHTML = this.value;
+           slider4bValueInput.value = this.value;
+       };
+       slider5.oninput = function() {
+           output5.innerHTML = this.value;
+           slider5ValueInput.value = this.value;
+       };
+      slider5b.oninput = function() {
+           output5b.innerHTML = this.value;
+           slider5bValueInput.value = this.value;
+       };
+       // No answer checkbox event
+       no_ans.addEventListener("change", function(event) {
+           var isChecked = event.currentTarget.checked;
+           no_ans.value = isChecked ? 1 : 0;
+           slider1.disabled = isChecked;
+           slider2.disabled = isChecked;
+           output1.innerHTML = isChecked ? '' : slider1.value;
+           output2.innerHTML = isChecked ? '' : slider2.value;
+           slider1.value = isChecked ? '' : slider1.value;
+           slider2.value = isChecked ? '' : slider2.value;
+           no_ans_reason.disabled = !isChecked;
+           if (!isChecked) no_ans_reason.value = '';
+       });
+
+       // Auto-resize textarea
+       const textareas = document.getElementsByClassName("autoresize");
+       for (let i = 0; i < textareas.length; i++) {
+           textareas[i].style.height = textareas[i].scrollHeight + "px";
+           textareas[i].addEventListener("input", function() {
+               this.style.height = 0;
+               this.style.height = this.scrollHeight + "px";
+           }, false);
+       }
+
+       // Disabled slider alert
+       const disabledSliders = document.getElementsByClassName("dsbld");
+       for (let i = 0; i < disabledSliders.length; i++) {
+           disabledSliders[i].addEventListener('pointerdown', function() {
+               alert('The slider in the examples is for demonstration purposes only. It cannot be moved.');
+           });
+       }
+
+       // Submit button event
+       $("#submit_button").click(function(event) {
+           $.getJSON('/home', {}, function(data) {});
+       });
+   });
+</script>
+
+{% endblock content %}

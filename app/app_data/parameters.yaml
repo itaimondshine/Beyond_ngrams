@@ -1,0 +1,33 @@
+key_path: /home/t-hdiddee/MultilingualBlanketEval/keys/openai_key.txt
+k: 4
+model: gpt
+chat_prompt: True
+turbo_identifier: gemini
+instruction_identifier: xlsum
+prompt_selection: False
+sleep_period: 0.5
+valid_languages:
+- 'portuguese'
+- 'french'
+- 'english'
+- 'arabic'
+- 'hindi'
+- 'kirundi'
+- 'amharic'
+- 'azerbaijani'
+- 'bengali'
+- 'uzbek'
+- 'burmese'
+temperature: 0
+response_logger_root: "outputs/responses/"
+metrics_root: "outputs/metrics/"
+prompt_names:
+- DOC_write_summary_of_above
+# For xlsum language codes check https://huggingface.co/datasets/csebuetnlp/xlsum/blob/main/xlsum.py or the dataloader for xlsum
+config:
+  input: "hebrew"  # The example
+  prefix: "english"    # The instruction
+  context: []
+  output: "hebrew"
+selected_language: "hebrew"
+limit: 1200
