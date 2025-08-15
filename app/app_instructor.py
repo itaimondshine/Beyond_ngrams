@@ -108,7 +108,7 @@ def validate_answered_question(q_idx, user=DEFAULT_ARGS):
 
 def get_sample(workerId=DEFAULT_ARGS):
     language_data_path = (
-        pathlib.Path(__file__).parent / "app_data" / "corrupted" / "c" / f"{LANGUAGE}.csv"
+        pathlib.Path(__file__).parent / "app_data" / "corrupted" / "v3" / f"{LANGUAGE}.csv"
     )
     language_data_df = pd.read_csv(language_data_path)
     # Get full indices
